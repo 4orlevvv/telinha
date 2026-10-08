@@ -120,6 +120,45 @@ body:has(.pop:popover-open) .dock [data-tip]::after{display:none}
 .micbox .helper{margin:0}
 .err{display:flex;gap:6px;align-items:flex-start;margin:-6px 0 0;font-size:12px;color:var(--live)}
 .fine{margin:0;font-size:12px;color:var(--text-3);text-align:center}
+.invite{margin:-6px 0 0;padding:10px 12px;border-radius:var(--r2);background:var(--accent-soft);font-size:13px;line-height:1.4}
+.invite b{font-family:var(--mono);font-weight:600;overflow-wrap:anywhere}
+.linkbtn{justify-self:center;padding:6px 2px;border:0;background:none;color:var(--text-2);font:inherit;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--text)}
+#lobby.busy .card{pointer-events:none}
+#lobby.busy #go,#lobby.busy #rlist,#lobby.busy #nrgo{opacity:.6}
+#rooms{width:min(520px,100%)}
+.rhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rhead h2{margin:0;font-size:28px;line-height:1.15;font-weight:700;font-variation-settings:"wdth" 108;letter-spacing:-.02em}
+#rt:focus{outline:none}
+#rhello{margin:-8px 0 0}
+#rstat{margin:-6px 0 0;font-size:13px;color:var(--text-2)}
+#rstat[data-k=err]{color:var(--live)}
+#rstat[data-k=note]{color:var(--warn)}
+#rstat[data-k=busy]{color:var(--text)}
+#rlist{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:min(42dvh,330px);overflow:auto}
+#rlist:empty{display:none}
+.rrow{display:flex;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:var(--r2);background:var(--surface-2);border:1px solid var(--line)}
+.rrow .rn{flex:1;min-width:0;display:grid;gap:3px}
+.rrow b{overflow-wrap:anywhere;font:600 14px var(--mono)}
+.rrow small{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:12px;color:var(--text-3)}
+.rrow small .i{width:14px;height:14px}
+.rrow .lv{color:var(--live);font-weight:650}
+.newform,.byname{display:grid;gap:12px}
+.newform{padding:14px;border-radius:var(--r2);background:var(--surface-2)}
+.newform .sw{font-size:14px}
+.newform .inp{background:var(--surface-1)}
+#pwdlg{width:min(380px,100% - 32px)}
+#pwdlg form{display:grid;gap:14px}
+#pwdlg .helper{margin:-8px 0 0}
+#pwroom{overflow-wrap:anywhere}
+.dlgbtns{display:flex;justify-content:flex-end;gap:8px}
+.btn.danger{background:var(--live-fill);border-color:transparent;color:#fff;font-weight:650}
+.btn.danger:hover{background:var(--live-fill);filter:brightness(1.08)}
+#leavedlg{width:min(400px,100% - 32px)}
+#leavedlg .helper{margin:8px 0 0;font-size:13.5px;line-height:1.5;color:var(--text-2)}
+.lvbtns{display:grid;gap:8px;margin-top:18px}
+#lverr{margin:12px 0 0}
+.btn.danger:disabled{opacity:.75}
 
 /* ============ App ============ */
 #app{height:100dvh;display:grid;grid-template:"top top" var(--header-h) "stage side" minmax(0,1fr) "dock side" var(--dock-h)/minmax(0,1fr) var(--side-w)}
@@ -231,8 +270,9 @@ body.no-stats .st{display:none}
 .prow{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 8px;border:0;border-radius:var(--r2);background:transparent;color:var(--text);text-align:left}
 .prow:hover{background:var(--surface-2)}
 .person.speaking .av{box-shadow:0 0 0 2px var(--surface-1),0 0 0 4px var(--range)}
-.pn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:550}
-.pn small{margin-left:4px;font-size:11px;font-weight:450;color:var(--text-3)}
+.pn{flex:1;min-width:0;display:flex;align-items:baseline;gap:4px;white-space:nowrap;font-weight:550}
+.pnn{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.pn small{flex:none;font-size:11px;font-weight:450;color:var(--text-3)}
 .pi{display:flex;gap:6px;color:var(--text-2)}
 .pi .i{width:16px;height:16px}
 .pi .shr{color:var(--accent-ink)}
@@ -505,6 +545,8 @@ body.cinema:not(.ui) #stage *{cursor:none!important}
   <symbol id="i-film" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 3v18M17 3v18M2 9h5M2 15h5M17 9h5M17 15h5"/></symbol>
   <symbol id="i-min" viewBox="0 0 24 24"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></symbol>
   <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></symbol>
   <symbol id="i-logo" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 21h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17.5" cy="8.5" r="2.2" fill="var(--accent)"/></symbol>
 </svg>
 
@@ -514,7 +556,7 @@ body.cinema:not(.ui) #stage *{cursor:none!important}
     <div class="brand"><svg class="logo" aria-hidden="true"><use href="#i-logo"/></svg><span class="word">telinha</span></div>
     <h1>Sua tela na telinha dos amigos.</h1>
     <p class="lead">Compartilhe em 1080p60 com o áudio do jogo, voz e chat. Sem conta, sem instalar nada.</p>
-    <label class="field"><span>Sala</span><span class="fwrap"><input id="lroom" class="inp mono" maxlength="40" spellcheck="false" autocapitalize="off"><button type="button" class="ib" id="dice" aria-label="Sortear outro nome de sala" data-tip="Sortear nome"><svg class="i"><use href="#i-dice"/></svg></button></span></label>
+    <p class="invite" id="lnote" hidden></p>
     <label class="field"><span>Seu nome</span><input id="ln" class="inp" maxlength="24" autocomplete="nickname" required></label>
     <div class="micbox">
       <div class="microw"><button type="button" id="lmic" class="db off" aria-pressed="false" aria-label="Testar e ligar o microfone"><svg class="i"><use href="#i-mic-off"/></svg></button><select id="ldev" class="inp" aria-label="Microfone"><option value="">Microfone padrão</option></select></div>
@@ -522,9 +564,29 @@ body.cinema:not(.ui) #stage *{cursor:none!important}
       <p class="helper" id="lhelp">Você vai entrar com o microfone desligado. Clique nele para testar.</p>
     </div>
     <p class="err" id="lerr" role="alert" hidden></p>
-    <button class="btn primary big" type="submit" id="go">Entrar na sala →</button>
+    <button class="btn primary big" type="submit" id="go">Continuar →</button>
+    <button type="button" class="linkbtn" id="seeRooms" hidden>Ver as salas abertas</button>
     <p class="fine">Conexão direta entre vocês (P2P) · Melhor no Chrome ou Edge no PC</p>
   </form>
+
+  <section id="rooms" class="card" hidden aria-labelledby="rt">
+    <div class="rhead"><h2 id="rt" tabindex="-1">Salas</h2><button type="button" class="linkbtn" id="rback">← Voltar</button></div>
+    <p class="lead" id="rhello"></p>
+    <p id="rstat" role="status" aria-live="polite">Procurando salas…</p>
+    <ul id="rlist" role="list"></ul>
+    <button type="button" class="btn primary big" id="newbtn" aria-expanded="false" aria-controls="nf"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Criar sala</button>
+    <form id="nf" class="newform" autocomplete="off" novalidate hidden>
+      <label class="field"><span>Nome da sala</span><span class="fwrap"><input id="nrname" class="inp mono" maxlength="40" spellcheck="false" autocapitalize="off"><button type="button" class="ib" id="dice" aria-label="Sortear outro nome de sala" data-tip="Sortear nome"><svg class="i"><use href="#i-dice"/></svg></button></span></label>
+      <label class="sw"><span>Proteger com senha</span><input type="checkbox" role="switch" id="nrlock"></label>
+      <label class="field" id="nrpwrow" hidden><span>Senha (quem souber, entra)</span><input id="nrpw" class="inp" maxlength="40" autocomplete="off" spellcheck="false" autocapitalize="off"></label>
+      <p class="err" id="nrerr" role="alert" hidden></p>
+      <button class="btn primary" type="submit" id="nrgo">Criar e entrar →</button>
+    </form>
+    <form id="bf" class="byname" autocomplete="off" novalidate>
+      <label class="field"><span>Já sabe o nome da sala? Entre direto</span><span class="fwrap"><input id="bname" class="inp mono" maxlength="40" spellcheck="false" autocapitalize="off" placeholder="nome-da-sala"><button type="submit" class="ib" id="bgo" aria-label="Entrar na sala" data-tip="Entrar">→</button></span></label>
+      <p class="err" id="berr" role="alert" hidden></p>
+    </form>
+  </section>
 </main>
 
 <!-- ============ APP ============ -->
@@ -680,6 +742,25 @@ body.cinema:not(.ui) #stage *{cursor:none!important}
   <div class="tip">Só quer o som de um site? Compartilhe a <b>guia</b> do Chrome e marque “Compartilhar também o áudio da guia”.</div>
 </dialog>
 
+<dialog id="pwdlg" aria-labelledby="pwt">
+  <form id="pwf" autocomplete="off" novalidate>
+    <h3 id="pwt">Sala com senha</h3>
+    <p class="helper mono" id="pwroom"></p>
+    <label class="field"><span>Senha</span><input id="pwin" class="inp" type="password" maxlength="40" autocomplete="off"></label>
+    <p class="err" id="pwerr" role="alert" hidden></p>
+    <div class="dlgbtns"><button type="button" class="btn ghost" id="pwno">Cancelar</button><button class="btn primary" type="submit" id="pwok">Entrar</button></div>
+  </form>
+</dialog>
+<dialog id="leavedlg" aria-labelledby="lvt" aria-describedby="lvd">
+  <h3 id="lvt">Sair da sala</h3>
+  <p class="helper" id="lvd">Você criou esta sala. Ela pode continuar aberta para quem está nela, ou ser apagada para todo mundo.</p>
+  <p class="err" id="lverr" role="alert" hidden></p>
+  <div class="lvbtns">
+    <button type="button" class="btn" id="lvkeep">Só sair (a sala continua)</button>
+    <button type="button" class="btn danger" id="lvdel">Apagar a sala para todos</button>
+    <button type="button" class="btn ghost" id="lvno">Cancelar</button>
+  </div>
+</dialog>
 <dialog id="imgview" class="imgview" aria-label="Imagem do chat"><img id="imgbig" alt=""><div class="ivbar"><button class="btn sm" type="button" id="imgdl">Baixar</button><button class="btn sm ghost" type="button" id="imgx">Fechar</button></div></dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js" integrity="sha384-x0YgkOr/3UOZP2CRDxGW9e0Q+2Qjyr3uJrm4xU32Y7ZCNAo7Cc7bjhrZMi/dwczu" crossorigin="anonymous"></script>
@@ -695,6 +776,28 @@ const cleanMsg=(s,n)=>typeof s==="string"?wf(s).replace(/\r\n?/g,"\n").replace(/
 const slug=s=>String(s||"").toLowerCase().normalize("NFD").replace(/\p{M}/gu,"").replace(/[^a-z0-9]+/g,"-").slice(0,40).replace(/^-+|-+$/g,"");
 const isId=s=>typeof s==="string"&&/^[\w-]{1,79}$/.test(s);
 const pick=a=>a[Math.random()*a.length|0];
+const HEX=/^[0-9a-f]{16,64}$/,ROOMRE=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+const rnd=()=>hex(crypto.getRandomValues(new Uint8Array(12)));
+const sha=async s=>hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)));
+// A senha vira um hash lento (PBKDF2) preso ao nome da sala. Ele nunca vai pela rede: o hub e quem entra só provam
+// que o conhecem, respondendo a desafios (veja hubAuth e sigAuth).
+async function derivePwh(room,pw){
+  const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);
+  return hex(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode("telinha:"+room),iterations:100000},k,256));
+}
+// Chave de quem criou a sala: fica só neste navegador (por 7 dias) e prova para o hub quem pode apagar a sala
+const ownKeys=()=>{const o=store.get("tl2-own",{});return o&&typeof o==="object"&&!Array.isArray(o)?o:{}};
+function keepOwn(room,k){const o=ownKeys(),now=Date.now();for(const r of Object.keys(o))if(!o[r]||!(now-o[r].t<7*864e5))delete o[r];o[room]={k,t:now};store.set("tl2-own",o)}
+const ownOf=room=>{const x=ownKeys()[room];return x&&typeof x.k==="string"&&HEX.test(x.k)?x.k:""};
+function forgetOwn(room){const o=ownKeys();if(o[room]){delete o[room];store.set("tl2-own",o)}}
+// Da chave saem dois segredos: ko (só mostra "criou a sala") e ke (só serve para apagar, e só é revelado ao apagar).
+// Todo mundo na sala guarda sha(ko) e sha(ke) e confere sozinho, sem precisar confiar em quem segura o hub.
+const ownKo=k=>sha(k+"|id"),ownKe=k=>sha(k+"|end");
+async function ownHashes(k){return{own:k,oh:await sha(await ownKo(k)),eh:await sha(await ownKe(k))}}
+// Lápides de salas apagadas, guardadas por 2 minutos também no navegador (o diretório muda de mãos com frequência)
+const goneLoad=()=>{const o=store.get("tl2-gone",{}),now=Date.now(),r={};if(o&&typeof o==="object")for(const k of Object.keys(o)){const v=o[k];if(ROOMRE.test(k)&&v&&typeof v.e==="string"&&HEX.test(v.e)&&now-v.t<120000)r[k]={t:v.t,e:v.e}}return r};
+function goneSave(room,e,t){const o=goneLoad();o[room]={t:t||Date.now(),e};store.set("tl2-gone",o)}
 const fmt1=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1});
 const p2=n=>String(n).padStart(2,"0");
 const hhmm=ts=>{const d=new Date(ts);return p2(d.getHours())+":"+p2(d.getMinutes())};
@@ -709,11 +812,12 @@ function download(blob,name){const a=h("a");a.href=URL.createObjectURL(blob);a.d
 const ANIM="capivara tucano jabuti lontra coruja raposa panda tatu sagui quati arara lhama polvo baleia golfinho pinguim tigre lobo urso coelho gato pato sapo foca zebra girafa macaco boto mico".split(" ");
 const ADJ="azul verde rosa cinza laranja vinho feliz veloz legal gentil alegre nobre livre forte valente brilhante radiante elegante zen jovem sutil".split(" ");
 const genRoom=()=>`${pick(ANIM)}-${pick(ADJ)}-${[...crypto.getRandomValues(new Uint8Array(6))].map(b=>"abcdefghjkmnpqrstuvwxyz23456789"[b%31]).join("")}`;
-let hashRoom="";try{hashRoom=slug(decodeURIComponent(location.hash.slice(1)))}catch(e){}
-const firstRoom=hashRoom||genRoom();
-let ROOM=firstRoom,HUB="telinha-"+ROOM,created=false;
-if(location.hash.slice(1)!==ROOM)history.replaceState(null,"","#"+ROOM);
-addEventListener("hashchange",()=>{if(joined)return location.reload();let r="";try{r=slug(decodeURIComponent(location.hash.slice(1)))}catch(e){}if(r)$("lroom").value=r});
+const hashOf=()=>{try{return slug(decodeURIComponent(location.hash.slice(1)))}catch(e){return ""}};
+let hashRoom=hashOf(); // convite (#nome-da-sala): depois do nome, vai direto para essa sala
+let ROOM=hashRoom,HUB="telinha-"+ROOM,created=false,roomPwh=""; // roomPwh: hash da senha ("" = sala aberta)
+let roomOwnKey="",roomOwnHash="",roomEndHash="",roomOwner=""; // chave de quem criou (só no navegador dela), sha(ko), sha(ke) e o ID de quem criou
+const DIR="telinha_dir1"; // diretório das salas; nomes de sala não têm "_", então ele não colide com nenhum hub
+addEventListener("hashchange",()=>{if(joined)return location.reload();lobbyHash()});
 
 // ================= Preferências =================
 // [largura, altura, fps, bitrate por pessoa]
@@ -952,31 +1056,74 @@ async function addDevice(id){
 // repassa chat e reações. Se ele cair, um sucessor combinado (o menor ID da lista) assume em ~1 s.
 function claimHub(){
   if(hubPeer||!joined||leaving||(mobile&&document.hidden&&roster.length>1))return;
-  const hp=hubPeer=new Peer(HUB);
+  const hp=hubPeer=new Peer(HUB);hubLock=roomPwh;hubOwnHash=roomOwnHash;hubEndHash=roomEndHash;hubOwner="";hubEnded=false;hubEndBy="";hubEndE="";
   hp.on("open",()=>{if(hubPeer!==hp)return;if(!hubHist.length)hubHist.push(...chatLog.slice(-50));connectHub()});
   hp.on("connection",c=>{
     // só JSON: o BinaryPack decodifica arrays do tamanho que o atacante quiser antes de qualquer checagem
-    if(c.serialization!=="json"||!isId(c.peer)||(!members.has(c.peer)&&members.size>=24)){try{c.close()}catch(e){}return}
-    const old=members.get(c.peer);members.set(c.peer,{c,seen:Date.now(),info:null,tok:20,tt:Date.now(),lr:0});
+    // até 24 na sala; quem ainda está se apresentando (ou só sondando) conta à parte, com teto próprio
+    const okN=[...members.values()].filter(x=>x.ok&&!x.probe).length;
+    if(c.serialization!=="json"||!isId(c.peer)||members.size>=40||(!members.has(c.peer)&&okN>=24)){try{c.close()}catch(e){}return}
+    const old=members.get(c.peer);members.set(c.peer,{c,seen:Date.now(),info:null,tok:20,tt:Date.now(),lr:0,ok:false,stage:0,probe:false,cn:"",hn:""});
     if(old)try{old.c.close()}catch(e){}
     c.on("data",d=>hubData(c,d));
-    c.on("close",()=>{const m=members.get(c.peer);if(m&&m.c===c){members.delete(c.peer);hubRoster()}});
+    c.on("close",()=>{const m=members.get(c.peer);if(m&&m.c===c){members.delete(c.peer);if(m.info)hubRoster()}});
     c.on("error",()=>{});
   });
   hp.on("disconnected",()=>setTimeout(()=>{if(hubPeer===hp&&hp.disconnected&&!hp.destroyed)try{hp.reconnect()}catch(e){}},1500+Math.random()*1500));
   // ID tomado: outra pessoa já é o hub (ou virou enquanto eu estava sem rede). Saio de cena.
-  hp.on("error",e=>{if(e.type==="unavailable-id"||e.type==="invalid-id"){dropHub(hp);retryHub()}});
+  hp.on("error",e=>{if(e.type==="unavailable-id"||e.type==="invalid-id"){if(!hubEver)created=false;dropHub(hp);retryHub()}else if(e.type==="peer-unavailable"&&e.message==="Could not connect to peer "+DIR){dirOut=null;claimDir()}});
   hp.on("close",()=>{if(hubPeer===hp)dropHub(hp)});
 }
-function dropHub(hp){if(hubPeer===hp){hubPeer=null;members.clear();hubHist.length=0}try{hp.destroy()}catch(e){}}
+function dropHub(hp){if(hubPeer===hp){hubPeer=null;hubLock="";hubOwner="";dirOut=null;members.clear();hubHist.length=0}try{hp.destroy()}catch(e){}}
 const hsend=(c,m)=>{if(c.open)try{c.send(m)}catch(e){}};
-const hubAll=m=>members.forEach(x=>hsend(x.c,m));
-const hubRoster=()=>{const sh=new Set([...members.values()].filter(x=>x.info?.sharing).map(x=>x.info.id));hubAll({t:"roster",host:myId||"",list:[...members.values()].filter(x=>x.info).map(x=>({...x.info,paused:x.info.paused.filter(id=>sh.has(id)),low:x.info.low.filter(id=>sh.has(id))}))})};
+const hubAll=m=>members.forEach(x=>{if(x.ok&&!x.probe)hsend(x.c,m)});
+// Entrada na sala: quem conecta se apresenta (auth) antes de receber qualquer coisa. Com senha, as duas pontas provam que
+// conhecem o hash da senha: quem entra manda SHA-256(hash|desafio do hub|desafio de quem entra) e, se estiver certo, o hub
+// responde com a prova dele (hp). Assim ninguém se passa pelo hub de uma sala trancada.
+let hubLock="",authBad=[],hubOwnHash="",hubEndHash="",hubOwner="",hubEnded=false,hubEndBy="",hubEndE="";
+const closeLater=c=>setTimeout(()=>{try{c.close()}catch(e){}},300); // dá tempo da resposta chegar
+async function hubAuth(c,m,d){
+  if(hubEnded){hsend(c,{t:"ended",by:hubEndBy,e:hubEndE});return closeLater(c)} // sala apagada: avisa quem ainda chega (com o ke, que prova)
+  if(d.t==="auth"&&!m.stage&&typeof d.cn==="string"&&HEX.test(d.cn)){
+    m.cn=d.cn;m.probe=d.probe===true;
+    if(!hubLock)return hubAdmit(c,m);
+    m.hn=rnd();m.stage=1;hsend(c,{t:"chal",hn:m.hn});return;
+  }
+  if(d.t==="proof"&&m.stage===1&&typeof d.p==="string"){
+    m.stage=2; // uma tentativa por conexão
+    // limite de senhas erradas (8 por minuto) só para quem é de fora: quem já está na sala sempre consegue reconectar
+    const now=Date.now(),known=c.peer===myId||inRoster(c.peer);authBad=authBad.filter(t=>now-t<60000);
+    if(!known&&authBad.length>=8){hsend(c,{t:"denied",why:"busy"});return closeLater(c)}
+    if(!known)authBad.push(now); // reserva a vaga antes de esperar o hash: tentativas em paralelo também contam
+    const good=d.p===await sha(hubLock+"|"+m.hn+"|"+m.cn);
+    if(good&&!known){const i=authBad.lastIndexOf(now);if(i>=0)authBad.splice(i,1)}
+    if(members.get(c.peer)?.c!==c)return;
+    if(good)return hubAdmit(c,m);
+    hsend(c,{t:"denied",why:"pw"});closeLater(c);
+  }
+}
+async function hubAdmit(c,m){
+  const hp=hubLock?await sha(hubLock+"|hub|"+m.cn+"|"+m.hn):"";
+  if(members.get(c.peer)?.c!==c)return;
+  m.ok=true;hsend(c,{t:"ok",lock:!!hubLock,hp});
+  if(m.probe)closeLater(c); // sondagem: só queria saber se pode entrar
+}
+// Apagar a sala (só quem criou): avisa todo mundo, sai do diretório e segura o ID da sala por alguns segundos, para que
+// ninguém que esteja reconectando reabra a sala sem querer
+function hubEnd(by,e){
+  if(hubEnded||!hubPeer)return;
+  hubEnded=true;hubEndBy=by;hubEndE=e;const hp=hubPeer;
+  hubAll({t:"ended",by,e});
+  if(dirHost)dirTomb(ROOM,e);else if(dirOut?.open){try{dirOut.send({t:"unreg",end:true,e})}catch(x){}}
+  setTimeout(()=>{members.forEach(x=>{try{x.c.close()}catch(y){}});if(hubPeer===hp)dropHub(hp)},8000);
+}
+const hubRoster=()=>{const sh=new Set([...members.values()].filter(x=>x.info?.sharing).map(x=>x.info.id));hubAll({t:"roster",host:myId||"",owner:hubOwner,oh:hubOwnHash,eh:hubEndHash,list:[...members.values()].filter(x=>x.info).map(x=>({...x.info,paused:x.info.paused.filter(id=>sh.has(id)),low:x.info.low.filter(id=>sh.has(id))}))})};
 function hubData(c,d){
   const m=members.get(c.peer);if(!m||m.c!==c||!d||typeof d!=="object")return;
   const now=Date.now();m.seen=now;
   // limite por pessoa (balde de fichas: 10 por segundo, rajada de 20)
   m.tok=Math.min(20,m.tok+(now-m.tt)/100);m.tt=now;const cost=d.t==="chat"||(d.t==="img"&&d.i===0)?4:d.t==="img"?0:1;if(m.tok<cost)return;m.tok-=cost;
+  if(!m.ok)return void hubAuth(c,m,d).catch(()=>{});
   switch(d.t){
     case "ping":hsend(c,{t:"pong"});break;
     case "me":case "hi":{
@@ -990,13 +1137,16 @@ function hubData(c,d){
       const msg={t:"chat",mid:Math.random().toString(36).slice(2,12),id:c.peer,name:m.info.name,text,ts:now};
       hubHist.push(msg);if(hubHist.length>50)hubHist.shift();hubAll(msg);break;
     }
+    // quem criou a sala se identifica (chave) e pode apagá-la
+    case "own":if(m.info&&hubOwnHash&&typeof d.k==="string"&&HEX.test(d.k))sha(d.k).then(x=>{if(x===hubOwnHash&&members.get(c.peer)?.c===c){hubOwner=c.peer;hubRoster()}});break;
+    case "end":if(m.info&&hubEndHash&&typeof d.e==="string"&&HEX.test(d.e))sha(d.e).then(x=>{if(x===hubEndHash&&members.get(c.peer)?.c===c)hubEnd(m.info.name,d.e)});break;
     case "react":if(m.info&&EMOJI.includes(d.e)&&now-m.lr>200){m.lr=now;hubAll({t:"react",id:c.peer,e:d.e})}break;
     case "img":{
       // imagem do chat: até 48 pedaços de 12 mil caracteres (~430 KB), com um limite de bytes por pessoa
       if(!m.info||!IMG_MIME.includes(d.mime)||!/^[a-z0-9]{4,16}$/.test(d.iid)||!Number.isInteger(d.n)||d.n<1||d.n>48||!Number.isInteger(d.i)||d.i<0||d.i>=d.n||typeof d.data!=="string"||d.data.length>12000)return;
       m.ib=Math.min(900e3,(m.ib??900e3)+(now-(m.ibt||now))*400);m.ibt=now;const bc=Math.max(d.data.length,2000);if(!d.data.length||m.ib<bc)return;m.ib-=bc;
       const im={t:"img",id:c.peer,name:m.info.name,iid:d.iid,i:d.i,n:d.n,mime:d.mime,data:d.data,ts:now};
-      members.forEach(x=>{if(x.c!==c&&(x.c.dataChannel?.bufferedAmount??0)<1e6&&!(x.c.bufferSize>0))hsend(x.c,im)});
+      members.forEach(x=>{if(x.ok&&!x.probe&&x.c!==c&&(x.c.dataChannel?.bufferedAmount??0)<1e6&&!(x.c.bufferSize>0))hsend(x.c,im)});
       if(d.i===0){hubHist.push({t:"chat",mid:"i"+d.iid,id:c.peer,name:m.info.name,text:"📷 mandou uma imagem",ts:now});if(hubHist.length>50)hubHist.shift()}
       break;
     }
@@ -1008,7 +1158,7 @@ setInterval(()=>{
   if(ch)hubRoster();
 },5000);
 // Celular escondido não segura o hub: passa o posto adiante
-document.addEventListener("visibilitychange",()=>{if(document.hidden&&mobile&&hubPeer&&members.size>1)dropHub(hubPeer)});
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&mobile&&hubPeer&&members.size>1)dropHub(hubPeer);if(document.hidden&&mobile&&dirPeer)dropDir(dirPeer)});
 
 // ================= Cliente do hub =================
 function connectHub(){
@@ -1017,10 +1167,57 @@ function connectHub(){
   if(sig){const o=sig;sig=null;try{o.close()}catch(e){}}
   const c=me.connect(HUB,{reliable:true,serialization:"json"});if(!c)return retryHub();
   sig=c;lastHub=Date.now();
-  c.on("open",()=>{if(sig!==c)return;lastHub=Date.now();sigFails=0;if(hubEver)quietUntil=Date.now()+8000;hubEver=true;sendState();setStatus()});
-  c.on("data",d=>{if(sig!==c)return;lastHub=Date.now();onHub(d)});
+  c.on("open",()=>{if(sig!==c)return;lastHub=Date.now();c.cn=rnd();try{c.send({t:"auth",cn:c.cn})}catch(e){}setStatus()});
+  c.on("data",d=>{if(sig!==c)return;lastHub=Date.now();if(c.authed)onHub(d);else sigAuth(c,d).catch(()=>{})});
   c.on("close",()=>{if(sig!==c)return;sig=null;setStatus();hubLost()});
   c.on("error",()=>{});
+}
+// Resposta do hub à minha apresentação (veja hubAuth)
+async function sigAuth(c,d){
+  if(!d||typeof d!=="object")return;
+  if(d.t==="ended")return(await endedOk(d))?roomEnded(d.by,d.e):hubEver?badHub(c,"ended"):giveUp("Essa sala foi apagada.");
+  if(d.t==="chal"){
+    if(!roomPwh)return hubEver?badHub(c,"lock"):giveUp("Essa sala tem senha. Entre de novo pela lista de salas.");
+    if(c.proved||typeof d.hn!=="string"||!HEX.test(d.hn))return;
+    c.proved=true;c.hn=d.hn;const p=await sha(roomPwh+"|"+d.hn+"|"+c.cn);
+    if(sig===c&&c.open)try{c.send({t:"proof",p})}catch(e){}
+  }else if(d.t==="ok"){
+    // sala com senha: o hub também tem que provar que conhece a senha; se não provar, é um impostor
+    if(roomPwh&&(!c.proved||typeof d.hp!=="string"||d.hp!==await sha(roomPwh+"|hub|"+c.cn+"|"+c.hn)))return badHub(c,"fake");
+    if(sig!==c)return;
+    c.authed=true;sigFails=0;if(hubEver)quietUntil=Date.now()+8000;hubEver=true;sendState();setStatus();
+    if(roomOwnKey)ownKo(roomOwnKey).then(k=>toHub({t:"own",k})); // eu criei a sala: mando só o ko (o segredo de apagar fica comigo)
+  }else if(d.t==="denied")badHub(c,d.why);
+}
+// Quem já está na sala nunca sai por causa de um hub que não provou nada: só tenta de novo
+function badHub(c,why){
+  if(sig!==c)return;sig=null;try{c.close()}catch(e){}setStatus();
+  if(!hubEver&&why==="pw")return giveUp("A senha desta sala não confere.");
+  if(!hubEver&&why==="fake")return giveUp("Outra sala com o mesmo nome, mas sem a mesma senha, ocupou o lugar desta.");
+  retryHub(why==="busy"?9000:4000+Math.random()*2000);
+}
+// "Sala apagada" só vale com o segredo de apagar de quem criou (ke), conferido contra o sha(ke) que todos guardaram.
+// Quem ainda nem entrou não tem como conferir: só volta para a lista.
+async function endedOk(d){
+  if(roomEndHash)return typeof d.e==="string"&&HEX.test(d.e)&&await sha(d.e)===roomEndHash;
+  return !hubEver;
+}
+// Sai da sala e volta direto para a lista de salas, com um aviso (sala apagada, senha que não confere...)
+function backToRooms(msg,ms,kind){
+  try{sessionStorage.setItem("tl-back","1");if(msg){sessionStorage.setItem("tl-msg",msg);sessionStorage.setItem("tl-kind",kind||"note")}}catch(e){}
+  tiles.forEach(t=>{try{t.rec?.stop()}catch(e){}}); // gravação em andamento: salva antes de sair
+  setTimeout(()=>{history.replaceState(null,"",location.pathname+location.search);location.reload()},ms);
+}
+function giveUp(msg){if(leaving)return;leaving=true;toast(msg+" Voltando para a lista de salas…","err");backToRooms(msg,2500,"err")}
+function roomEnded(by,e){
+  if(leaving)return;leaving=true;
+  const room=ROOM,ev=typeof e==="string"&&HEX.test(e)?e:"";
+  if(ev&&roomEndHash)goneSave(room,ev); // se eu virar o diretório, a sala apagada não volta para a lista
+  if(ev&&roomOwnKey)ownKe(roomOwnKey).then(k=>{if(k===ev)forgetOwn(room)}); // só esqueço a chave se o "apagada" veio dela
+  const who=clean(by,24),msg=roomOwner&&roomOwner===myId?`Você apagou a sala #${ROOM}.`:`A sala #${ROOM} foi apagada${who?" por "+who:""}.`;
+  if($("leavedlg").open)$("leavedlg").close();
+  toast(msg+" Voltando para a lista…","warn");
+  backToRooms(msg,hubPeer?8500:2500,"note"); // quem segura o hub fica mais um pouco, respondendo "apagada" a quem chegar
 }
 function retryHub(ms){clearTimeout(hubTimer);hubTimer=setTimeout(connectHub,ms??600+Math.random()*1200)}
 // O hub caiu: o menor ID da última lista (fora quem hospedava) assume na hora; os outros já se
@@ -1031,7 +1228,8 @@ function hubLost(){
   if(next&&next===myId){if(mobile&&roster.length>2)setTimeout(()=>{if(!sig?.open)claimHub()},2500);else claimHub();retryHub(2000)}
   else retryHub(300+Math.random()*700);
 }
-const toHub=m=>{if(sig?.open)try{sig.send(m);return true}catch(e){}return false};
+const sigOk=()=>!!(sig?.open&&sig.authed);
+const toHub=m=>{if(sigOk())try{sig.send(m);return true}catch(e){}return false};
 // O que eu estou vendo de cada tela: miniatura (tile pequeno) ou nada (aba escondida sem janela flutuante).
 // Quem transmite usa isso para mandar uma versão leve, ou só o áudio, e economizar upload e processador.
 function viewState(){
@@ -1047,11 +1245,12 @@ function onHub(d){
   switch(d.t){
     case "roster":
       if(!Array.isArray(d.list))return;
-      hubHost=isId(d.host)?d.host:"";
+      hubHost=isId(d.host)?d.host:"";roomOwner=isId(d.owner)?d.owner:"";if((!created&&!rosterReady||!roomOwnHash)&&typeof d.oh==="string"&&HEX.test(d.oh))roomOwnHash=d.oh;if((!created&&!rosterReady||!roomEndHash)&&typeof d.eh==="string"&&HEX.test(d.eh))roomEndHash=d.eh;
       setRoster(d.list.filter(p=>p&&isId(p.id)).slice(0,64).map(p=>({id:p.id,name:clean(p.name,24)||"Amigo",sharing:p.sharing===true,mic:p.mic===true,paused:Array.isArray(p.paused)?p.paused.filter(isId).slice(0,16):[],away:p.away===true,low:Array.isArray(p.low)?p.low.filter(isId).slice(0,8):[]})));
       break;
     case "hist":if(Array.isArray(d.list)&&d.list.length){const b=$("msgs");b.setAttribute("aria-live","off");d.list.slice(-50).forEach(m=>addChat(m,false));clearTimeout(histT);histT=setTimeout(()=>b.setAttribute("aria-live","polite"),1000)}break;
     case "chat":addChat(d,true);break;
+    case "ended":endedOk(d).then(ok=>{if(ok)roomEnded(d.by,d.e)});break;
     case "img":onImg(d);break;
     case "react":if(EMOJI.includes(d.e)&&isId(d.id)){floatReact(d.e,nameOf(d.id));if(d.id!==myId)beep("rx",.04)}break;
   }
@@ -1340,7 +1539,7 @@ function renderPeople(){
   list.sort((a,b)=>(b.id===myId)-(a.id===myId));
   for(const r of list){
     const isMe=r.id===myId,name=isMe?myName:r.name,el=h("div","person"),row=h("button","prow");row.type="button";
-    const pn=h("span","pn",name);if(isMe)pn.append(h("small",null,"você"));
+    const pn=h("span","pn");pn.append(h("span","pnn",name));if(isMe)pn.append(h("small",null," você"));if(roomOwner&&r.id===roomOwner)pn.append(h("small",null,isMe?" · criou a sala":" criou a sala"));
     const pi=h("span","pi");
     if(isMe?local.screen:r.sharing)pi.insertAdjacentHTML("beforeend",`<span class="shr" role="img" aria-label="Compartilhando a tela" title="Compartilhando a tela">${ic("monitor")}</span>`);
     if(isMe?micOn:r.mic)pi.insertAdjacentHTML("beforeend",`<span role="img" aria-label="Microfone ligado" title="Microfone ligado">${ic("mic")}</span>`);
@@ -1678,7 +1877,7 @@ function imgDims(b,mime){
 }
 async function sendImage(file){
   if(!file||!/^image\//.test(file.type))return;
-  if(!sig?.open)return toast("Sem conexão com a sala agora. A imagem não foi enviada.","warn");
+  if(!sigOk())return toast("Sem conexão com a sala agora. A imagem não foi enviada.","warn");
   let bmp;try{bmp=await createImageBitmap(file)}catch(e){return toast("Não consegui abrir essa imagem.","err")}
   let max=1600,q=.85,blob=null;
   for(;;){ // diminui até caber em ~400 KB
@@ -1751,7 +1950,7 @@ function renderQuality(){
 }
 function setStatus(){
   const n=Math.max(roster.length,1),meBad=!me?.open&&(me?.destroyed||me?.disconnected);
-  const s=sig?.open?"ok":meBad?"bad":hubEver?"warn":"wait";
+  const s=sigOk()?"ok":meBad?"bad":hubEver?"warn":"wait";
   $("cnt").dataset.s=s;$("cnt").textContent=s==="ok"?`${n} na sala`:s==="bad"?"sem conexão":s==="warn"?"reconectando…":"conectando…";
   const net=$("net");net.dataset.s=s==="ok"&&rttMs!=null&&rttMs>200?"warn":s;
   $("rtt").textContent=s==="ok"&&rttMs!=null?rttMs+" ms":"";
@@ -1773,7 +1972,7 @@ function openSide(tab){
 async function invite(){
   const url=location.href;
   if(navigator.share&&touch){try{await navigator.share({title:"Telinha",text:"Entra aí pra ver a tela 📺",url});return}catch(e){if(e.name==="AbortError")return}}
-  try{await navigator.clipboard.writeText(url);toast("Link copiado. Agora é só mandar pra galera.","ok");const u=$("roomPill").querySelector("use");u.setAttribute("href","#i-check");setTimeout(()=>u.setAttribute("href","#i-copy"),1500)}
+  try{await navigator.clipboard.writeText(url);toast(roomPwh?"Link copiado. A senha você passa separado.":"Link copiado. Agora é só mandar pra galera.","ok");const u=$("roomPill").querySelector("use");u.setAttribute("href","#i-check");setTimeout(()=>u.setAttribute("href","#i-copy"),1500)}
   catch(e){prompt("Copie o link da sala:",url)}
 }
 
@@ -1800,7 +1999,7 @@ function startPeer(){
   p.on("close",()=>{if(me===p&&!leaving){setStatus();setTimeout(()=>{if(me===p)startPeer()},3000)}});
   p.on("error",e=>{
     if(e.type==="unavailable-id"&&me===p){try{p.destroy()}catch(_){}return} // alguém pegou meu id: o "close" cria um peer novo
-    if(e.type==="peer-unavailable"&&e.message==="Could not connect to peer "+HUB)claimHub();
+    if(e.type==="peer-unavailable"&&e.message==="Could not connect to peer "+HUB&&(rosterReady||created))claimHub();
     setStatus();
   });
 }
@@ -1820,9 +2019,282 @@ setInterval(()=>{
   syncCalls();setStatus();
 },4000);
 addEventListener("beforeunload",e=>{if(!leaving&&[...tiles.values()].some(t=>t.rec)){e.preventDefault();e.returnValue=""}});
-addEventListener("pagehide",()=>{leaving=true;try{hubPeer?.destroy()}catch(e){}try{me?.destroy()}catch(e){}});
+addEventListener("pagehide",()=>{leaving=true;for(const p of [hubPeer,me,dirPeer,lobbyPeer])try{p?.destroy()}catch(e){}});
 addEventListener("pageshow",e=>{if(e.persisted)location.reload()});
 
+// ================= Diretório de salas =================
+// Sem servidor: um peer com ID fixo (DIR) guarda a lista das salas abertas. Quem está na tela de salas, ou segura o hub de
+// alguma sala, assume quando ele some. Cada sala é registrada pelo próprio peer do hub dela (a cada 5 s), então só quem
+// segura o hub de verdade consegue anunciar a sala.
+let dirPeer=null,dirHost=false,dirOut=null,dirPushT=0;
+const dirRooms=new Map(),dirSubs=new Set(),dirAll=new Set(),dirGone=new Map(); // dirGone: salas apagadas há pouco
+function dirList(){
+  const now=Date.now();
+  return[...dirRooms.values()].filter(v=>now-v.seen<20000).sort((a,b)=>b.live-a.live||b.n-a.n||(a.room<b.room?-1:1)).slice(0,100).map(v=>({room:v.room,n:v.n,live:v.live,lock:v.lock}));
+}
+function dirPush(){
+  clearTimeout(dirPushT);dirPushT=0;
+  const list=dirList(),m={t:"rooms",list};
+  dirSubs.forEach(c=>{if(c.open)try{c.send(m)}catch(e){}});
+  if(!joined)renderRooms(list);
+}
+const dirPushSoon=()=>{if(!dirPushT)dirPushT=setTimeout(dirPush,250)};
+function dirSet(owner,d,c){
+  const room=typeof d.room==="string"?d.room:"";
+  if(room.length>40||!ROOMRE.test(room)||owner!=="telinha-"+room)return; // só o hub da própria sala a registra
+  // sala apagada há pouco: não volta para a lista, e quem a reabriu sem querer recebe a prova (ke) de que foi apagada
+  const g=dirGone.get(room);
+  if(g&&Date.now()-g.t<120000){
+    if(!g.h||d.eh===g.h){if(c){try{c.send({t:"ended",room,e:g.e})}catch(x){}}else endedOk(g).then(ok=>{if(ok){hubEnd("",g.e);roomEnded("",g.e)}});return}
+    dirGone.delete(room); // é outra sala com o mesmo nome (outra chave): pode aparecer
+  }
+  const n=Number.isInteger(d.n)?Math.max(1,Math.min(24,d.n)):1,live=Number.isInteger(d.live)?Math.max(0,Math.min(n,d.live)):0;
+  if(!dirRooms.has(room)&&dirRooms.size>=150)return;
+  dirRooms.set(room,{room,owner,n,live,lock:d.lock===true,seen:Date.now()});dirPushSoon();
+}
+function dirDel(owner){let ch=false;for(const[k,v]of dirRooms)if(v.owner===owner){dirRooms.delete(k);ch=true}if(ch)dirPushSoon()}
+// Lápide: sala apagada há pouco não volta para a lista por 2 minutos (guarda o ke, para provar a quem reabrir sem querer)
+function dirTomb(room,e,t){
+  if(!ROOMRE.test(room)||typeof e!=="string"||!HEX.test(e))return;
+  const g={t:t||Date.now(),e};dirRooms.delete(room);dirGone.set(room,g);sha(e).then(x=>{g.h=x});goneSave(room,e,g.t);
+  if(dirGone.size>200)dirGone.delete(dirGone.keys().next().value);
+  dirPushSoon();
+}
+function dirData(c,d){
+  if(!d||typeof d!=="object")return;
+  const now=Date.now();c.dt=Math.min(10,(c.dt??10)+(now-(c.dtt||now))/500);c.dtt=now;if(c.dt<1)return;c.dt-=1; // limite por conexão
+  if(d.t==="sub"){dirSubs.add(c);try{c.send({t:"rooms",list:dirList()})}catch(e){}}
+  else if(d.t==="reg"){c.reg=true;dirSet(c.peer,d,c)}
+  else if(d.t==="unreg"){dirDel(c.peer);if(d.end===true&&c.peer.startsWith("telinha-"))dirTomb(c.peer.slice(8),d.e)}
+}
+function claimDir(){
+  if(dirPeer||leaving||(mobile&&document.hidden))return; // celular em segundo plano congela: não segura o diretório
+  const dp=dirPeer=new Peer(DIR);
+  dp.on("open",()=>{if(dirPeer!==dp)return;dirHost=true;try{dirConn?.close()}catch(e){}dirConn=null;const gs=goneLoad();for(const k in gs)if(!dirGone.has(k))dirTomb(k,gs[k].e,gs[k].t);dirPush();if(joined)dirTick()});
+  dp.on("connection",c=>{
+    // até 120 conexões e 2 por peer; quem não se inscreve nem registra sala em 10 s é desligado
+    if(c.serialization!=="json"||!isId(c.peer)||dirAll.size>=120||[...dirAll].filter(x=>x.peer===c.peer).length>=2){try{c.close()}catch(e){}return}
+    c.t0=Date.now();dirAll.add(c);
+    c.on("data",d=>dirData(c,d));
+    c.on("close",()=>{dirAll.delete(c);dirSubs.delete(c);if(![...dirAll].some(x=>x.peer===c.peer))dirDel(c.peer)});
+    c.on("error",()=>{});
+  });
+  dp.on("disconnected",()=>setTimeout(()=>{if(dirPeer===dp&&dp.disconnected&&!dp.destroyed)try{dp.reconnect()}catch(e){}},1500+Math.random()*1500));
+  dp.on("error",e=>{if(e.type==="unavailable-id"||e.type==="invalid-id")dropDir(dp)}); // outro já é o diretório: viro cliente
+  dp.on("close",()=>{if(dirPeer===dp)dropDir(dp)});
+}
+function dropDir(dp){
+  if(dirPeer===dp){dirPeer=null;dirHost=false;dirRooms.clear();dirSubs.clear();dirAll.clear();setTimeout(()=>{if(!joined)dirConnect()},700+Math.random()*900)}
+  try{dp.destroy()}catch(e){}
+}
+setInterval(()=>{
+  if(!dirHost)return;
+  const now=Date.now();for(const[k,v]of dirRooms)if(now-v.seen>=20000)dirRooms.delete(k);
+  for(const[k,v]of dirGone)if(now-v.t>=120000)dirGone.delete(k);
+  for(const c of dirAll)if(!dirSubs.has(c)&&!c.reg&&now-c.t0>10000){dirAll.delete(c);try{c.close()}catch(e){}}
+  dirPush(); // reenvia a lista para quem está na tela de salas
+},5000);
+// Quem segura o hub de uma sala a registra no diretório, falando pelo próprio peer do hub
+function dirTick(){
+  if(!joined||leaving||!me?.open)return;
+  if(!hubPeer?.open||hubEnded){
+    if(dirOut){try{dirOut.send(hubEnded?{t:"unreg",end:true,e:hubEndE}:{t:"unreg"})}catch(e){}try{dirOut.close()}catch(e){}dirOut=null}
+    return; // registro antigo vence sozinho em 20 s (e não apaga o de quem assumiu o hub)
+  }
+  const on=[...members.values()].filter(x=>x.ok&&!x.probe&&x.info);
+  const reg={t:"reg",room:ROOM,n:Math.max(1,on.length),live:on.filter(x=>x.info.sharing).length,lock:!!hubLock,eh:hubEndHash};
+  if(dirHost)return dirSet(HUB,reg);
+  if(dirOut?.open){try{dirOut.send(reg)}catch(e){}return}
+  if(dirOut&&Date.now()-dirOut.t0<8000)return; // ainda conectando
+  try{dirOut?.close()}catch(e){}
+  const c=dirOut=hubPeer.connect(DIR,{reliable:true,serialization:"json"});if(!c)return;c.t0=Date.now();
+  c.on("open",()=>{if(dirOut===c)try{c.send(reg)}catch(e){}});
+  c.on("data",d=>{if(dirOut===c&&d&&d.t==="ended"&&d.room===ROOM)endedOk(d).then(ok=>{if(ok){hubEnd("",d.e);roomEnded("",d.e)}})}); // reabri uma sala apagada sem querer
+  c.on("close",()=>{if(dirOut===c)dirOut=null});c.on("error",()=>{});
+}
+setInterval(dirTick,5000);
+
+// ---- Tela de salas (antes de entrar) ----
+let lobbyPeer=null,dirConn=null,lobbyBusy=false,lastRoomsAt=0,errAt=0,roomsList=[],roomsShownAt=0;
+const probes=new Map(); // ID do hub -> fim da sondagem (o "peer-unavailable" chega no Peer, não na conexão)
+const fullRooms=new Set();
+const roomsShown=()=>!joined&&!$("rooms").hidden;
+function roomsStat(t,k){const e=$("rstat");e.textContent=t;e.dataset.k=k||""}
+function lobbyStart(){
+  if(lobbyPeer&&!lobbyPeer.destroyed){if(lobbyPeer.disconnected)try{lobbyPeer.reconnect()}catch(e){}return}
+  const p=lobbyPeer=new Peer();
+  p.on("open",()=>{if(lobbyPeer===p&&roomsShown())dirConnect()});
+  p.on("error",e=>{
+    if(lobbyPeer!==p||e.type!=="peer-unavailable")return;
+    const id=String(e.message||"").replace("Could not connect to peer ","");
+    if(id===DIR){dirConn=null;claimDir()}else probes.get(id)?.({none:true});
+  });
+  p.on("close",()=>{if(lobbyPeer===p)lobbyPeer=null});
+}
+function lobbyStop(){try{dirConn?.close()}catch(e){}dirConn=null;probes.clear();const p=lobbyPeer;lobbyPeer=null;try{p?.destroy()}catch(e){}}
+const lobbyReady=()=>new Promise(res=>{
+  lobbyStart();const t0=Date.now(),iv=setInterval(()=>{if(lobbyPeer?.open){clearInterval(iv);res(true)}else if(Date.now()-t0>9000){clearInterval(iv);res(false)}},100);
+});
+function dirConnect(){
+  if(dirHost||!lobbyPeer?.open||!roomsShown())return;
+  try{dirConn?.close()}catch(e){}
+  const c=dirConn=lobbyPeer.connect(DIR,{reliable:true,serialization:"json"});if(!c)return;c.t0=Date.now();
+  c.on("open",()=>{if(dirConn===c)try{c.send({t:"sub"})}catch(e){}});
+  c.on("data",d=>{if(dirConn===c&&d&&d.t==="rooms"&&Array.isArray(d.list))renderRooms(d.list.slice(0,100))});
+  c.on("close",()=>{if(dirConn===c)dirConn=null});
+  c.on("error",()=>{});
+}
+setInterval(()=>{ // caiu a conexão com o servidor ou com o diretório: tenta de novo
+  if(!roomsShown())return;
+  if(!lobbyPeer||lobbyPeer.destroyed){lobbyStart();return} // o peer nunca abriu (rede caiu ao carregar): cria outro
+  if(lobbyPeer.disconnected)try{lobbyPeer.reconnect()}catch(e){}
+  if(dirHost||!lobbyPeer.open)return;
+  if(!dirConn||(!dirConn.open&&Date.now()-dirConn.t0>8000))dirConnect();
+},3000);
+function renderRooms(list){
+  if(!roomsShown())return;
+  const ul=$("rlist"),key=JSON.stringify(list);lastRoomsAt=Date.now();roomsList=list;
+  if(ul.dataset.key!==key){ // só refaz a lista quando algo mudou (não rouba o foco nem o clique)
+    ul.dataset.key=key;
+    const fr=document.activeElement?.closest?.("#rlist")?document.activeElement.dataset.room:"";
+    ul.textContent="";fullRooms.clear();
+    for(const r of list){
+      if(!r||typeof r.room!=="string"||r.room.length>40||!ROOMRE.test(r.room))continue;
+      const n=Math.max(1,Math.min(24,r.n|0)),lv=Math.max(0,Math.min(n,r.live|0)),lock=r.lock===true,full=n>=24;
+      if(full)fullRooms.add(r.room);
+      const li=h("li","rrow"),rn=h("div","rn"),sm=h("small");
+      if(lock)sm.insertAdjacentHTML("beforeend",ic("lock"));
+      sm.append(h("span",null,`${n} ${n===1?"pessoa":"pessoas"}${lock?" · com senha":""}${full?" · cheia":""}`));
+      if(lv)sm.append(h("span","lv","● "+(lv===1?"1 ao vivo":lv+" ao vivo")));
+      rn.append(h("b",null,r.room),sm);
+      const go=h("button","btn sm primary",full?"Cheia":"Entrar");go.type="button";go.dataset.room=r.room;go.disabled=full;
+      go.setAttribute("aria-label",(full?"Sala cheia: ":"Entrar na sala ")+r.room);go.onclick=()=>enterRoom(r.room);
+      li.append(rn,go);ul.append(li);
+    }
+    if(fr)ul.querySelector(`button[data-room="${fr}"]`)?.focus(); // fr já passou pelo ROOMRE
+  }
+  const k=ul.children.length,st=$("rstat").dataset.k;
+  if(st!=="busy"&&(!st||Date.now()-errAt>15000))roomsStat(k?`${k} ${k===1?"sala aberta":"salas abertas"}`:"Nenhuma sala aberta agora. Crie a primeira!");
+}
+function lobbyErr(m,k){
+  if(roomsShown()){errAt=Date.now();roomsStat(m,k||"err")}
+  else{const e=$("lerr");e.hidden=false;e.innerHTML=ic("alert");e.append(h("span",null,m))}
+}
+function setBusy(on){
+  lobbyBusy=on;$("lobby").classList.toggle("busy",on);$("lobby").setAttribute("aria-busy",on);
+  $("go").disabled=on||!clean($("ln").value,24);
+  if(hashRoom)$("go").textContent=on?"Entrando…":"Entrar na sala →";
+}
+// Sondagem: conecta no hub da sala só para saber se ela existe, se tem senha e se a minha senha vale
+function probeRoom(room,pwh){
+  return new Promise(res=>{
+    const p=lobbyPeer;if(!p?.open)return res({err:"net"});
+    const id="telinha-"+room,cn=rnd();let done=false,c=null,hn="";
+    const fin=r=>{if(done)return;done=true;clearTimeout(t);if(probes.get(id)===fin)probes.delete(id);try{c?.close()}catch(e){}res(r)};
+    const t=setTimeout(()=>fin({err:"timeout"}),9000);
+    probes.set(id,fin);
+    c=p.connect(id,{reliable:true,serialization:"json"});if(!c)return fin({err:"net"});
+    c.on("open",()=>{try{c.send({t:"auth",cn,probe:true})}catch(e){}});
+    c.on("data",async d=>{
+      if(!d||typeof d!=="object")return;
+      if(d.t==="chal"){
+        if(!pwh)return fin({ok:false,lock:true});
+        if(typeof d.hn!=="string"||!HEX.test(d.hn))return fin({err:"proto"});
+        hn=d.hn;const pr=await sha(pwh+"|"+d.hn+"|"+cn);if(!done)try{c.send({t:"proof",p:pr})}catch(e){}
+      }else if(d.t==="ok"){
+        if(pwh&&(!hn||d.hp!==await sha(pwh+"|hub|"+cn+"|"+hn)))return fin({err:"fake"}); // o hub não provou a senha
+        fin({ok:true,lock:d.lock===true});
+      }else if(d.t==="denied")fin({denied:d.why});
+      else if(d.t==="ended")fin({none:true,ended:true});
+    });
+    c.on("close",()=>fin({err:"closed"}));c.on("error",()=>fin({err:"net"}));
+  });
+}
+// Diálogo de senha: confere ali mesmo e só fecha quando a senha está certa (ou a pessoa cancela)
+function askPassword(room){
+  return new Promise(res=>{
+    const d=$("pwdlg"),f=$("pwf"),i=$("pwin"),e=$("pwerr"),ok=$("pwok");let fin=false;
+    $("pwroom").textContent="#"+room;e.hidden=true;i.value="";ok.disabled=false;ok.textContent="Entrar";
+    const onclose=()=>end(null);
+    const end=v=>{if(fin)return;fin=true;d.removeEventListener("close",onclose);if(d.open)d.close();res(v)};
+    f.onsubmit=async ev=>{
+      ev.preventDefault();if(!i.value||ok.disabled)return;ok.disabled=true;ok.textContent="Verificando…";e.hidden=true;
+      const pwh=await derivePwh(room,i.value),r=await probeRoom(room,pwh);
+      if(fin)return;
+      if(r.ok)return end({pwh});
+      if(r.none)return end({gone:true,ended:r.ended});
+      e.hidden=false;e.textContent=r.denied==="busy"?"Muitas tentativas erradas. Espere um minuto.":r.denied==="pw"?"Senha incorreta.":"Não consegui verificar a senha. Tente de novo.";
+      ok.disabled=false;ok.textContent="Entrar";i.select();i.focus();
+    };
+    $("pwno").onclick=()=>end(null);
+    d.addEventListener("close",onclose);
+    d.showModal();i.focus();
+  });
+}
+const wait=ms=>new Promise(z=>setTimeout(z,ms));
+// Entrar numa sala que já existe (da lista, por convite ou pelo nome)
+async function enterRoom(room,{link=false,byName=false}={}){
+  if(lobbyBusy)return;
+  const fail=m=>{if(byName&&roomsShown()){const e=$("berr");e.hidden=false;e.textContent=m}else lobbyErr(m)};
+  $("lerr").hidden=true;$("berr").hidden=true;setBusy(true);
+  if(roomsShown())roomsStat(`Entrando em #${room}…`,"busy");
+  try{
+    if(!(await lobbyReady()))return fail("Sem conexão com o servidor. Tente de novo em instantes.");
+    let r=await probeRoom(room,"");
+    // não achou o hub: pode ser só ele trocando de mãos; confere de novo antes de abrir uma sala nova com esse nome
+    if(r.none&&!r.ended&&link){await wait(3000);r=await probeRoom(room,"")}
+    if(r.none){
+      if(r.ended)return fail("Essa sala foi apagada por quem a criou.");
+      if(link){const own=ownOf(room)||rnd();keepOwn(room,own);return join(room,{created:true,...await ownHashes(own)})} // convite para sala vazia: quem chega primeiro a abre
+      return fail(byName?"Não achei uma sala com esse nome.":"Essa sala já fechou. Escolha outra ou crie uma nova.");
+    }
+    if(r.ok)return join(room,{});
+    if(r.lock){
+      const x=await askPassword(room);
+      if(!x)return;
+      if(x.gone)return fail(x.ended?"Essa sala foi apagada por quem a criou.":"Essa sala já fechou. Escolha outra ou crie uma nova.");
+      return join(room,{pwh:x.pwh});
+    }
+    if(fullRooms.has(room))return fail("Essa sala está cheia (24 pessoas).");
+    fail("Não consegui entrar nessa sala agora. Tente de novo.");
+  }finally{setBusy(false);if(roomsShown()&&$("rstat").dataset.k==="busy"){if(lastRoomsAt){roomsStat("");renderRooms(roomsList)}else roomsStat(Date.now()-roomsShownAt>9000?"Ainda procurando… Se demorar, crie uma sala ou digite o nome dela abaixo.":"Procurando salas…")}}
+}
+async function createRoom(){
+  if(lobbyBusy)return;
+  const room=slug($("nrname").value),lock=$("nrlock").checked,pw=$("nrpw").value,e=$("nrerr");
+  const bad=m=>{e.hidden=false;e.textContent=m};
+  if(room.length<3)return bad("Escolha um nome com pelo menos 3 letras ou números.");
+  if(lock&&pw.length<4)return bad("A senha precisa ter pelo menos 4 caracteres.");
+  e.hidden=true;$("nrname").value=room;setBusy(true);$("nrgo").textContent="Criando…";
+  try{
+    if(!(await lobbyReady()))return bad("Sem conexão com o servidor. Tente de novo em instantes.");
+    let r=await probeRoom(room,"");
+    // está na lista mas o hub não respondeu: pode ser só ele trocando de mãos; confere de novo
+    if(r.none&&!r.ended&&roomsList.some(x=>x&&x.room===room)){await wait(3000);r=await probeRoom(room,"")}
+    if(r.ended)return bad("Essa sala acabou de ser apagada. Espere alguns segundos ou escolha outro nome.");
+    if(!r.none)return bad(r.err?"Não consegui verificar o nome agora. Tente de novo.":"Já existe uma sala com esse nome. Escolha outro.");
+    const own=rnd();keepOwn(room,own);
+    join(room,{created:true,pwh:lock?await derivePwh(room,pw):"",...await ownHashes(own)});
+  }finally{setBusy(false);$("nrgo").textContent="Criar e entrar →"}
+}
+function showRooms(){
+  $("lf").hidden=true;$("rooms").hidden=false;lastRoomsAt=0;roomsShownAt=Date.now();
+  $("rhello").textContent=`Oi, ${myName}! Escolha uma sala ou crie a sua.`;
+  const ul=$("rlist");ul.textContent="";delete ul.dataset.key;roomsStat("Procurando salas…");
+  if(!$("nrname").value)$("nrname").value=genRoom();
+  lobbyStart();if(dirHost)dirPush();else dirConnect();
+  $("rt").focus();
+  setTimeout(()=>{if(roomsShown()&&!lastRoomsAt)roomsStat("Ainda procurando… Se demorar, crie uma sala ou digite o nome dela abaixo.")},9000);
+}
+function lobbyHash(){
+  hashRoom=hashOf();lobbyLabel();
+  if(hashRoom&&roomsShown()&&!lobbyBusy){$("rooms").hidden=true;$("lf").hidden=false;$("go").focus()} // chegou um convite
+}
+function lobbyLabel(){
+  const n=$("lnote");n.hidden=!hashRoom;
+  if(hashRoom)n.replaceChildren("Convite para a sala ",h("b",null,"#"+hashRoom));
+  $("go").textContent=hashRoom?"Entrar na sala →":"Continuar →";$("seeRooms").hidden=!hashRoom;
+}
 // ================= Lobby =================
 let preview=null,previewBusy=false;
 async function lobbyMic(on){
@@ -1838,10 +2310,10 @@ async function lobbyMic(on){
   $("lhelp").textContent=act?"Fale algo para testar. Você vai entrar com o microfone ligado.":`Você vai entrar com o microfone desligado. ${touch?"Toque":"Clique"} nele para testar.`;
   $("lvu").style.setProperty("--l",0);
 }
-function join(){
-  const r=slug($("lroom").value)||genRoom();
-  created=!hashRoom&&r===firstRoom;
-  ROOM=r;HUB="telinha-"+ROOM;if(location.hash.slice(1)!==ROOM)history.replaceState(null,"","#"+ROOM);
+function join(room,o={}){
+  ROOM=room;HUB="telinha-"+ROOM;created=o.created===true;roomPwh=o.pwh||"";roomOwnKey=o.own||ownOf(room);roomOwnHash=o.oh||"";roomEndHash=o.eh||"";roomOwner="";
+  if(location.hash.slice(1)!==ROOM)history.replaceState(null,"","#"+ROOM);
+  lobbyStop();
   joined=true;$("lobby").hidden=true;$("app").hidden=false;
   $("room").textContent="#"+ROOM;$("roomPill").setAttribute("aria-label",`Copiar convite da sala ${ROOM}`);$("roomPill").dataset.tip="Copiar convite";
   audio();mixInit();
@@ -1861,15 +2333,27 @@ function renderHelp(){
   $("p1you").hidden=best!==1;$("p2you").hidden=best!==2;
 }
 (function wire(){
-  $("lroom").value=ROOM;
+  lobbyLabel();
   let saved=store.get("tl2-name",null);if(!saved)try{saved=localStorage.getItem("tl-name")}catch(e){}
   $("ln").value=clean(saved,24);
-  const syncGo=()=>{$("go").disabled=!clean($("ln").value,24)};syncGo();$("ln").oninput=syncGo;
-  setTimeout(()=>($("ln").value?$("go"):$("ln")).focus(),50);
-  $("dice").onclick=()=>{$("lroom").value=genRoom()};
+  const syncGo=()=>{$("go").disabled=lobbyBusy||!clean($("ln").value,24)};syncGo();$("ln").oninput=syncGo;
+  setTimeout(()=>{if(!$("lf").hidden)($("ln").value?$("go"):$("ln")).focus()},50);
+  $("dice").onclick=()=>{$("nrname").value=genRoom();$("nrname").focus()};
   $("lmic").onclick=()=>lobbyMic(!preview);
   $("ldev").onchange=async()=>{set.mic=$("ldev").value;save();if(preview){await lobbyMic(false);lobbyMic(true)}};
-  $("lf").onsubmit=e=>{e.preventDefault();myName=clean($("ln").value,24);if(!myName)return $("ln").focus();store.set("tl2-name",myName);$("go").disabled=true;$("go").textContent="Entrando…";join()};
+  const nameOk=()=>{myName=clean($("ln").value,24);if(!myName){$("ln").focus();return false}store.set("tl2-name",myName);return true};
+  $("lf").onsubmit=e=>{e.preventDefault();if(!nameOk())return;if(hashRoom)enterRoom(hashRoom,{link:true});else showRooms()};
+  $("seeRooms").onclick=()=>{if(nameOk())showRooms()};
+  $("rback").onclick=()=>{$("rooms").hidden=true;$("lf").hidden=false;$("ln").focus()};
+  $("newbtn").onclick=()=>{const f=$("nf");f.hidden=!f.hidden;$("newbtn").setAttribute("aria-expanded",!f.hidden);if(!f.hidden){$("nrname").focus();$("nrname").select()}};
+  $("nrlock").onchange=()=>{$("nrpwrow").hidden=!$("nrlock").checked;if($("nrlock").checked)$("nrpw").focus()};
+  $("nf").onsubmit=e=>{e.preventDefault();createRoom()};
+  $("bf").onsubmit=e=>{e.preventDefault();const r=slug($("bname").value);if(!r)return $("bname").focus();enterRoom(r,{byName:true})};
+  // voltando de uma sala (Sair, sala apagada...): pula o nome, mostra as salas e o aviso, se houver
+  try{if(sessionStorage.getItem("tl-back")==="1"){
+    const msg=sessionStorage.getItem("tl-msg"),kind=sessionStorage.getItem("tl-kind")==="err"?"err":"note";for(const k of ["tl-back","tl-msg","tl-kind"])sessionStorage.removeItem(k);
+    if(!hashRoom&&clean($("ln").value,24)&&nameOk()){showRooms();if(msg)lobbyErr(clean(msg,160),kind)}
+  }}catch(e){}
 
   $("share").onclick=()=>local.screen?stopShare():startShare();
   $("share2").onclick=startShare;$("swap").onclick=()=>{$("qpop").hidePopover();swapShare()};
@@ -1880,7 +2364,27 @@ function renderHelp(){
   $("scrim").onclick=$("grab").onclick=()=>setSide(false);
   document.querySelectorAll("#side input[name=tab]").forEach(r=>r.onchange=()=>{$("side").dataset.tab=r.value;if(chatVisible()){unread=0;updateUnread()}});
   $("gridback").onclick=()=>setFocus(null);
-  $("leave").onclick=()=>{if([...tiles.values()].some(t=>t.rec)&&!confirm("Você está gravando. Sair e perder a gravação?"))return;leaving=true;location.reload()};
+  // Sair: quem criou a sala escolhe entre só sair (a sala continua) ou apagar para todos
+  const goOut=()=>{leaving=true;try{sessionStorage.setItem("tl-back","1")}catch(e){}history.replaceState(null,"",location.pathname+location.search);location.reload()};
+  const lvErr=m=>{const e=$("lverr");e.hidden=!m;e.textContent=m||""};
+  const lvReset=()=>{$("lvdel").disabled=false;$("lvdel").textContent="Apagar a sala para todos";lvErr("")};
+  $("leave").onclick=()=>{
+    if(leaving)return;
+    if([...tiles.values()].some(t=>t.rec)&&!confirm("Você está gravando. Sair e perder a gravação?"))return;
+    const mine=!!roomOwner&&roomOwner===myId;
+    if(mine&&roster.length>1){lvReset();return $("leavedlg").showModal()}
+    if(mine)forgetOwn(ROOM); // sozinho na sala: ela fecha junto
+    goOut();
+  };
+  $("lvkeep").onclick=()=>{$("leavedlg").close();goOut()};
+  $("lvno").onclick=()=>$("leavedlg").close();
+  $("lvdel").onclick=async()=>{
+    if(!roomOwnKey)return lvErr("Não achei a chave desta sala neste navegador.");
+    const e=await ownKe(roomOwnKey); // o segredo de apagar só sai daqui agora
+    if(!toHub({t:"end",e}))return lvErr("Sem conexão com a sala agora. Tente de novo em instantes.");
+    lvErr("");$("lvdel").disabled=true;$("lvdel").textContent="Apagando…";
+    setTimeout(()=>{if(!leaving&&$("leavedlg").open){lvReset();lvErr("Não consegui apagar a sala agora. Tente de novo.");$("lvdel").focus()}},6000);
+  };
 
   // Chat
   const ci=$("ci");
