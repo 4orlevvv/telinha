@@ -2367,18 +2367,21 @@ function renderHelp(){
   // Sair: quem criou a sala escolhe entre só sair (a sala continua) ou apagar para todos
   const goOut=()=>{leaving=true;try{sessionStorage.setItem("tl-back","1")}catch(e){}history.replaceState(null,"",location.pathname+location.search);location.reload()};
   const lvErr=m=>{const e=$("lverr");e.hidden=!m;e.textContent=m||""};
-  const lvReset=()=>{$("lvdel").disabled=false;$("lvdel").textContent="Apagar a sala para todos";lvErr("")};
+  let lvAlone=false;
+  const lvReset=()=>{$("lvdel").disabled=false;$("lvdel").textContent=lvAlone?"Sair e fechar a sala":"Apagar a sala para todos";lvErr("")};
   $("leave").onclick=()=>{
     if(leaving)return;
     if([...tiles.values()].some(t=>t.rec)&&!confirm("Você está gravando. Sair e perder a gravação?"))return;
-    const mine=!!roomOwner&&roomOwner===myId;
-    if(mine&&roster.length>1){lvReset();return $("leavedlg").showModal()}
-    if(mine)forgetOwn(ROOM); // sozinho na sala: ela fecha junto
-    goOut();
+    if(!roomOwner||roomOwner!==myId)return goOut(); // só quem criou a sala escolhe
+    // sozinho: não tem como a sala continuar (sem ninguém dentro, ninguém a segura), então só confirma o fechamento
+    lvAlone=roster.length<=1;lvReset();$("lvkeep").hidden=lvAlone;
+    $("lvd").textContent=lvAlone?"Você está sozinho nesta sala. Quando você sair, ela fecha: sem ninguém dentro, não tem como ela continuar aberta.":"Você criou esta sala. Ela pode continuar aberta para quem está nela, ou ser apagada para todo mundo.";
+    $("leavedlg").showModal();
   };
   $("lvkeep").onclick=()=>{$("leavedlg").close();goOut()};
   $("lvno").onclick=()=>$("leavedlg").close();
   $("lvdel").onclick=async()=>{
+    if(lvAlone){forgetOwn(ROOM);$("leavedlg").close();return goOut()} // sozinho: sair já fecha a sala
     if(!roomOwnKey)return lvErr("Não achei a chave desta sala neste navegador.");
     const e=await ownKe(roomOwnKey); // o segredo de apagar só sai daqui agora
     if(!toHub({t:"end",e}))return lvErr("Sem conexão com a sala agora. Tente de novo em instantes.");

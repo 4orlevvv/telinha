@@ -233,6 +233,16 @@ await step("depois de apagada, uma sala nova com o mesmo nome pode ser criada e 
   await inRoom(B, 1, 30000);
   await listed(D, OPEN, 30000);
 });
+await step("quem criou e está sozinho: Sair pergunta e só oferece fechar a sala", async () => {
+  await B.p.click("#leave");
+  await B.p.waitForSelector("#leavedlg[open]", { timeout: 5000 });
+  if (await B.p.isVisible("#lvkeep")) throw new Error("ofereceu 'Só sair' estando sozinho");
+  if (!/Sair e fechar a sala/.test(await B.p.textContent("#lvdel"))) throw new Error("botão: " + await B.p.textContent("#lvdel"));
+  if (!/sozinho/.test(await B.p.textContent("#lvd"))) throw new Error("texto não explica");
+  await shot(B, "09-sozinho-fechar");
+  await B.p.click("#lvdel");
+  await B.p.waitForSelector("#rooms:not([hidden])", { timeout: 15000 });
+});
 
 const M = await visit("Mari", "", { width: 360, height: 760 });
 await step("celular (360 px): tela de salas sem rolagem lateral", async () => {
